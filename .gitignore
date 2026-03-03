@@ -1,11 +1,12 @@
-1. Images/
-2. Cat/
-3. Dog/
+# Ignore datasets
+Images/
+Cat/
+Dog/
 
+# Ignore virtual environment
+DLEnv/
 
-2. DLEnv/
-
-
-
-
+# Python cache
+__pycache__/
+*.pyc
 
