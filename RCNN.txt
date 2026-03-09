@@ -1,0 +1,44 @@
+R-CNN Pipeline Lab
+Understanding the R-CNN Object Detection Process
+
+In this lab I tried to understand how R-CNN detects objects in an image. Normally in image classification, 
+the model only predicts one label for the entire image. For example, if we give an image of a dog, the model just outputs “dog”.
+
+But, in object detection, the image can contain multiple objects, such as a dog, a person, and a car at the same time. 
+The model must not only identify the objects but also locate them using bounding boxes. Because objects can appear in different sizes and positions, 
+detecting many objects is much more difficult than simple classification.
+
+Step 1: Region Proposals
+The first step in R-CNN is generating region proposals. 
+Instead of checking every possible location in the image, the algorithm uses Selective Search to find around 
+2,000 possible regions that may contain objects. These regions are basically candidate areas where objects might exist.
+
+Step 2: Crop and Resize Regions
+Each proposed region is then cropped from the original image and resized to a fixed size.
+This is necessary because the CNN model used in R-CNN (AlexNet) requires all input images to have the same dimensions.
+
+Step 3: Feature Extraction using CNN
+After resizing, each region is passed through a Convolutional Neural Network (CNN). 
+The CNN extracts feature vectors, which represent important visual patterns like edges, shapes, and textures. 
+These features help the model understand what the object might be.
+
+Step 4: Classification using SVM
+Once the features are extracted, they are passed to Support Vector Machine (SVM) classifiers. 
+The SVM decides which object class the region belongs to, such as car, dog, or person.
+
+Step 5: Bounding Box Regression
+After classification, a bounding box regressor is used to improve the object’s location. 
+It adjusts the predicted box slightly so that it fits the object more accurately.
+
+Step 6: Non-Maximum Suppression
+Since many region proposals may overlap and detect the same object multiple times, 
+Non-Maximum Suppression (NMS) is applied. NMS removes duplicate detections and keeps only the bounding box with the highest confidence score.
+
+
+
+Simple Pipeline Sketch
+
+
+Image  --> Region Proposals --> Crop & Resize --> CNN --> SVM --> Bounding Box Refinement --> Non-Max Suppression --> Detected Objects
+
+               
