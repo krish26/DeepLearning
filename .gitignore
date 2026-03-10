@@ -11,6 +11,7 @@ object-detection-1/
 
 # Ignore virtual environment
 DLEnv/
+.env/
 
 # Python cache
 __pycache__/
