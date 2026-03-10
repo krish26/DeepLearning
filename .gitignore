@@ -2,6 +2,10 @@
 Images/
 Cat/
 Dog/
+redcup/
+bluebottle/
+phone/
+
 
 # Ignore virtual environment
 DLEnv/
