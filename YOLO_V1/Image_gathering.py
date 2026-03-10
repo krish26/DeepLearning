@@ -49,53 +49,84 @@
 #         )
 
 
-
-
-# Importing the module
-from google_images_download import google_images_download
+# Install first if not installed:
+# pip install duckduckgo-search requests tqdm
 import os
 import time
+import random
+import requests
+from tqdm import tqdm
+from ddgs import DDGS
 
-# Create object
-response = google_images_download.googleimagesdownload()
-
-# Search queries
+# Queries to search
 search_queries = [
-    "blue bottle on table with objects",
-    "blue bottle next to laptop",
-    "smart phone in different angles",
-    "phone on desk with objects",
+
+    "people holding smartphone",
+    "phone on desk with objects"
 ]
 
-# Function to download images
-def download_images(query, limit=100):
-    # Arguments for downloading
-    arguments = {
-        "keywords": query,
-        "format": "jpg",
-        "limit": limit,
-        "print_urls": True,
-        "size": "medium",
-        "aspect_ratio": "square",
-        "output_directory": "downloaded_images",  # All images saved here
-    }
+# Output folder
+output_folder = "downloaded_images"
+os.makedirs(output_folder, exist_ok=True)
 
-    try:
-        print(f"Downloading images for query: '{query}' ...")
-        response.download(arguments)
-        print(f"✅ Completed: {query}\n")
-    except FileNotFoundError:
-        print(f"Folder not found for query: {query}, retrying without aspect_ratio...")
-        arguments.pop("aspect_ratio", None)
+
+def download_images(query, limit=30, retries=3):
+
+    print(f"\nSearching images for: {query}")
+
+    for attempt in range(retries):
+
         try:
-            response.download(arguments)
-            print(f"✅ Completed (without aspect_ratio): {query}\n")
-        except Exception as e:
-            print(f"❌ Failed to download images for '{query}': {e}\n")
-    except Exception as e:
-        print(f"❌ Unexpected error for '{query}': {e}\n")
+            with DDGS() as ddgs:
+                results = list(ddgs.images(query, max_results=limit))
 
-# Driver code
+            if not results:
+                print("No results found")
+                return
+
+            query_folder = os.path.join(
+                output_folder, query.replace(" ", "_"))
+            os.makedirs(query_folder, exist_ok=True)
+
+            for i, img in enumerate(tqdm(results, desc="Downloading")):
+
+                try:
+                    url = img["image"]
+
+                    response = requests.get(url, timeout=10)
+
+                    ext = url.split(".")[-1].split("?")[0]
+
+                    if ext.lower() not in ["jpg", "jpeg", "png"]:
+                        ext = "jpg"
+
+                    filepath = os.path.join(query_folder, f"{i+1}.{ext}")
+
+                    with open(filepath, "wb") as f:
+                        f.write(response.content)
+
+                except Exception as e:
+                    print(f"Failed image {i+1}: {e}")
+
+            print(f"Finished downloading for '{query}'")
+
+            return
+
+        except Exception as e:
+
+            print(f"Attempt {attempt+1} failed: {e}")
+
+            wait = random.randint(5, 10)
+            print(f"Waiting {wait} seconds before retry...")
+            time.sleep(wait)
+
+    print(f"Failed completely for {query}")
+
+
+# Run downloader
 for query in search_queries:
-    download_images(query)
-    time.sleep(2)  # Wait 2 seconds between queries to reduce request load
+
+    download_images(query, limit=30)
+
+    # delay between queries to avoid rate limit
+    time.sleep(random.randint(5, 8))
