@@ -1,17 +1,21 @@
-Started with gathering the images : 
-used BingImageCrawler and duckduckgo-search to scrape images directly.
+Group : 
+Krishna koumudi
+Apeksha
+
+
+Started with gathering the images :  used BingImageCrawler and duckduckgo-search to scrape images directly.
 
 final Dataset size : 926 Total Images
 
+using YOLOv8 downloaded the dataset with the roboflow API key
 
 
 
 
-Using this rule based on dataset size:
 
-Dataset Size	                Best Model
-<500 images	                    YOLOv8n
-500–2000 images	                YOLOv8s
-2000–10000 images	            YOLOv8m
-10000+ images	            YOLOv8l / YOLOv8x
+
+
+
+
+
 
