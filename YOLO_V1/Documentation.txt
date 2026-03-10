@@ -1,0 +1,2 @@
+Started with gathering the images : 
+used BingImageCrawler to scrape images directly 

@@ -1,69 +1,101 @@
+# from icrawler.builtin import BingImageCrawler
+# import os
+
+# dataset = {
+#     "red_cup":[
+
+#         "red cup on messy desk"
+#     ],
+
+#     "blue_bottle":[
+
+#         "blue bottle on table with objects",
+#         "blue bottle next to laptop"
+#     ],
+
+#     # "phone":[
+#     #     "smartphone on table",
+#     #     "mobile phone different angles",
+#     #     "phone on desk with objects",
+#     #     "smartphone front and back",
+#     #     "phone on desk with laptop",
+#     #     "cup and phone on table"
+#     # ]
+# }
+
+
+# dataset_path = "dataset"
+
+# for label,queries in dataset.items():
+
+#     folder = os.path.join(dataset_path,label)
+#     os.makedirs(folder,exist_ok=True)
+
+#     for q in queries:
+
+#         print("Downloading:",q)
+
+#         crawler = BingImageCrawler(
+#             feeder_threads=1,
+#             parser_threads=2,
+#             downloader_threads=4,
+#             storage={'root_dir':folder}
+#         )
+
+#         crawler.crawl(
+#             keyword=q,
+#             max_num=10,
+#             min_size=(300,300)   # avoid tiny images
+#         )
+
+
+
+
+# Importing the module
+from google_images_download import google_images_download
 import os
-import requests
-from duckduckgo_search import DDGS
-from PIL import Image
-from io import BytesIO
+import time
 
-dataset = {
-    "red_cup":[
-        "red coffee cup on table",
-        "red mug different angles",
-        "red ceramic mug kitchen",
-        "red cup top view",
-        "red mug on desk"
-    ],
+# Create object
+response = google_images_download.googleimagesdownload()
 
-    "blue_bottle":[
-        "blue water bottle on table",
-        "blue bottle different angles",
-        "blue plastic bottle photography",
-        "blue bottle studio photo"
-    ],
+# Search queries
+search_queries = [
+    "blue bottle on table with objects",
+    "blue bottle next to laptop",
+    "smart phone in different angles",
+    "phone on desk with objects",
+]
 
-    "phone":[
-        "smartphone on table",
-        "mobile phone different angles",
-        "phone on desk with objects",
-        "smartphone front and back"
-    ]
-}
+# Function to download images
+def download_images(query, limit=100):
+    # Arguments for downloading
+    arguments = {
+        "keywords": query,
+        "format": "jpg",
+        "limit": limit,
+        "print_urls": True,
+        "size": "medium",
+        "aspect_ratio": "square",
+        "output_directory": "downloaded_images",  # All images saved here
+    }
 
-base_folder = "dataset"
+    try:
+        print(f"Downloading images for query: '{query}' ...")
+        response.download(arguments)
+        print(f"✅ Completed: {query}\n")
+    except FileNotFoundError:
+        print(f"Folder not found for query: {query}, retrying without aspect_ratio...")
+        arguments.pop("aspect_ratio", None)
+        try:
+            response.download(arguments)
+            print(f"✅ Completed (without aspect_ratio): {query}\n")
+        except Exception as e:
+            print(f"❌ Failed to download images for '{query}': {e}\n")
+    except Exception as e:
+        print(f"❌ Unexpected error for '{query}': {e}\n")
 
-for label,queries in dataset.items():
-
-    folder = os.path.join(base_folder,label)
-    os.makedirs(folder,exist_ok=True)
-
-    count = 0
-
-    for query in queries:
-
-        print("Searching:",query)
-
-        with DDGS() as ddgs:
-            results = ddgs.images(query,max_results=100)
-
-            for r in results:
-
-                try:
-                    url = r["image"]
-
-                    response = requests.get(url,timeout=5)
-
-                    img = Image.open(BytesIO(response.content))
-
-                    # skip very small images
-                    if img.size[0] < 300 or img.size[1] < 300:
-                        continue
-
-                    path = os.path.join(folder,f"{label}_{count}.jpg")
-
-                    img.convert("RGB").save(path)
-
-                    count += 1
-
-                except:
-                    pass
-
-    print(label,"downloaded:",count)
+# Driver code
+for query in search_queries:
+    download_images(query)
+    time.sleep(2)  # Wait 2 seconds between queries to reduce request load
