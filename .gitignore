@@ -7,11 +7,14 @@ blue_bottle/
 phone/
 downloaded_images/
 object-detection-1/
+runs/
 
 
 # Ignore virtual environment
 DLEnv/
 .env
+.conda
+
 
 # Python cache
 __pycache__/
