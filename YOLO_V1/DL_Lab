@@ -1,0 +1,63 @@
+Why is object detection harder than image classification?
+
+Object detection is harder than image classification because it requires both identifying what is in an image and where it is located (localization). It involves predicting multiple bounding boxes and classes simultaneously, handling complex scenes with varying scales, and requires significantly more labeled data and computational power
+
+
+Key reasons for its increased difficulty include:
+Dual Task Requirement
+Multiple Object Handling
+Data Annotation Complexity
+
+
+Why was the sliding window method inefficient for object detection?
+
+Problems with this method:
+It requires thousands of evaluations per image.
+The window must run at multiple sizes and scales to detect large and small objects.
+This results in very high computational cost.
+It is too slow for real-time applications like video processing or autonomous driving.
+Example:
+A single image might require tens of thousands of window checks, which makes the method extremely inefficient.
+
+
+
+Why was YOLO considered a breakthrough for real-time systems?
+
+YOLO (You Only Look Once) was considered a breakthrough for real-time systems because it changed how object detection worked. Before YOLO, most systems were slow and complex, while YOLO made detection fast enough to run in real time (video streams, webcams, robotics, etc.).
+
+1. Single-Pass Detection (End-to-End Model)
+Earlier methods like R-CNN, Fast R-CNN, and Faster R-CNN used multiple stages:
+
+Generate region proposals (possible object locations)-> Run a CNN on each region -> Classify objects -> Refine bounding boxes
+
+This pipeline was slow and computationally heavy.
+
+YOLO instead:
+ooks at the entire image once and Predicts bounding boxes + class probabilities in one pass
+
+
+2. Extremely Fast (Real-Time Speed)
+YOLO can process images at high frame rates, which is essential for real-time applications.
+
+3. Simpler Architecture
+YOLO uses a single neural network that directly outputs:
+Bounding box coordinates
+Object confidence score
+Class probabilities
+No complicated pipelines are required.
+
+4. Better Generalization
+
+Because YOLO learns from the entire image, it tends to make fewer background detection errors compared to earlier region-based detectors.
+
+
+Why do generative models need huge datasets?
+
+Because the model needs to learn different patterns , structures, variations in data , textures in order to generate diverse output 
+
+
+What happens if the dataset is too small in generative models?
+
+The model will memorize the data insted of learning different patterns which results in bad model predictions. 
+
+

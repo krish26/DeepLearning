@@ -1,3 +1,55 @@
+# from icrawler.builtin import BingImageCrawler
+# import os
+
+# dataset = {
+#     "red_cup":[
+
+#         "red cup on messy desk"
+#     ],
+
+#     "blue_bottle":[
+
+#         "blue bottle on table with objects",
+#         "blue bottle next to laptop"
+#     ],
+
+#     # "phone":[
+#     #     "smartphone on table",
+#     #     "mobile phone different angles",
+#     #     "phone on desk with objects",
+#     #     "smartphone front and back",
+#     #     "phone on desk with laptop",
+#     #     "cup and phone on table"
+#     # ]
+# }
+
+
+# dataset_path = "dataset"
+
+# for label,queries in dataset.items():
+
+#     folder = os.path.join(dataset_path,label)
+#     os.makedirs(folder,exist_ok=True)
+
+#     for q in queries:
+
+#         print("Downloading:",q)
+
+#         crawler = BingImageCrawler(
+#             feeder_threads=1,
+#             parser_threads=2,
+#             downloader_threads=4,
+#             storage={'root_dir':folder}
+#         )
+
+#         crawler.crawl(
+#             keyword=q,
+#             max_num=10,
+#             min_size=(300,300)   # avoid tiny images
+#         )
+
+
+
 import os
 import time
 import random
@@ -77,58 +129,3 @@ for query in search_queries:
 
     # delay between queries to avoid rate limit
     time.sleep(random.randint(5, 8))
-
-
-
-
-
-# from icrawler.builtin import BingImageCrawler
-# import os
-
-# dataset = {
-#     "red_cup":[
-
-#         "red cup on messy desk"
-#     ],
-
-#     "blue_bottle":[
-
-#         "blue bottle on table with objects",
-#         "blue bottle next to laptop"
-#     ],
-
-#     # "phone":[
-#     #     "smartphone on table",
-#     #     "mobile phone different angles",
-#     #     "phone on desk with objects",
-#     #     "smartphone front and back",
-#     #     "phone on desk with laptop",
-#     #     "cup and phone on table"
-#     # ]
-# }
-
-
-# dataset_path = "dataset"
-
-# for label,queries in dataset.items():
-
-#     folder = os.path.join(dataset_path,label)
-#     os.makedirs(folder,exist_ok=True)
-
-#     for q in queries:
-
-#         print("Downloading:",q)
-
-#         crawler = BingImageCrawler(
-#             feeder_threads=1,
-#             parser_threads=2,
-#             downloader_threads=4,
-#             storage={'root_dir':folder}
-#         )
-
-#         crawler.crawl(
-#             keyword=q,
-#             max_num=10,
-#             min_size=(300,300)   # avoid tiny images
-#         )
-
