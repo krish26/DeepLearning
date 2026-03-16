@@ -19,8 +19,6 @@ It is too slow for real-time applications like video processing or autonomous dr
 Example:
 A single image might require tens of thousands of window checks, which makes the method extremely inefficient.
 
-
-
 Why was YOLO considered a breakthrough for real-time systems?
 
 YOLO (You Only Look Once) was considered a breakthrough for real-time systems because it changed how object detection worked. Before YOLO, most systems were slow and complex, while YOLO made detection fast enough to run in real time (video streams, webcams, robotics, etc.).
