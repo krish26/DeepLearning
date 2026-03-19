@@ -1,0 +1,52 @@
+1. What does it mean to run an AI model locally?
+A: Running an AI model locally means executing the model on your own machine (computer, laptop, or local server) instead of using a cloud-based service or API.
+
+This gives:
+->Full control over the model and environment (you can modify, fine-tune, or customize it)
+->Better data privacy and security, since your data stays on your machine
+->Offline access, meaning it can work without an internet connection
+
+But one concern is ,it also requires sufficient hardware resources (CPU/GPU, memory) and setup effort compared to cloud solutions.
+
+
+2. What are the advantages of running models locally instead of using an API?
+A: 
+->Better data privacy and security – sensitive data stays on your machine and is not sent to external servers
+->Full control and customization – you can modify, fine-tune, or optimize the model as needed
+->Offline access – the model works without an internet connection
+->Lower latency (faster responses) – no network calls, so responses can be quicker
+->No API costs or rate limits – avoids usage fees and request restrictions
+
+3. What are some limitations of running models locally?
+A: insufficient hardware resources
+
+4. What is Ollama (or similar tools) used for?
+A: It helps to run open source AI models locally which we can also finetune and change according to our needs
+
+5. How is this similar to what we did with Hugging Face?
+A: in Huggingface we did not create models but we used pre existing models from Huggingface
+same here we use pre trained models/llms from ollama
+
+
+1. When would you choose:
+   
+   - a simple ML model (like your first lab)?
+   - a Hugging Face model?
+   - a local LLM (like in the video)?
+
+A: 1. Simple Ml model : if task is small , small dataset and we need fast performance nd low costs
+    ex: spam detection
+        Fraud detection (structured data)
+        Basic sentiment analysis
+   2.You need good performance quickly, don’t want to train from scratch
+    Ex:Text summarization
+       Named entity recognition
+       Translation
+   3. local llms : when we need data privacy , want full control over model 
+   ex: secure document processing
+       internal company chatbot / Ai agent 
+       Resume Anlyzer running locally
+
+       CountVectorizer + ML → basic intelligence
+       Hugging Face → pre-trained intelligence
+       LLMs → general intelligence (multi-task)

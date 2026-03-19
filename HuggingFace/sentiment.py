@@ -7,11 +7,19 @@ sentiment = pipeline("sentiment-analysis", model = "distilbert-base-uncased-fine
 print("\n SENTIMENT ANALYSIS \n ")
 
 examples =[
-    "I absoutely love coding python",
-    "This bug is driving me crazy",
-    "Its okay, not great, not terrible"
+    "the movie was great",
+    "i hated the film",
+    "the movie was not good",
+    "the acting was not bad",
+    "visually impressive but boring",
+    "i wanted to like it"
 ]
 
 for text in examples:
     result = sentiment(text)[0]
     print(f"Text: {text} \n - Label : {result['label']} , score : {result['score']:.3f}")
+
+print("Transformer models like DistilBERT often struggle with neutrality," \
+" as the fine-tuning process frequently leads to polarization where the model maximizes its " \
+"confidence in one class at the cost of failing to identify neutral stances. This happens because the model" \
+" aims for higher accuracy on the known classes (Positive/Negative) rather than a balanced, nuanced output")
